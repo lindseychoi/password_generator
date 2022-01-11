@@ -17,120 +17,71 @@
 
 // Assignment Code
 
-//variables:
 
-//need variable for characters, lowercase, and random generator
-var characterLowercase = ("abcdefghijklmnopqrstuvwxyz");
-randomLower = characterLowercase[Math.floor(Math.random() * characterLowercase.length)];
+//functions
 
-//need variable for characters, uppercase, and random generator
-var characterUppercase = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-randomUpper = characterUppercase[Math.floor(Math.random() * characterUppercase.length)];
+function generatePassword(upper, lower, number, special, howLong) {
 
-randomNum = [Math.floor(Math.random() * 100)];
-console.log(randomNum);
+    var characterLowercase = ("abcdefghijklmnopqrstuvwxyz");
+    var characterUppercase = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    var specialChars = ("!@#$%^&*");
+    var availableCharacterSet = "";
 
-//need variable for lenght and random generator, 8-128
+    if 
 
-var passwordLength = Math.floor(Math.random() * howLong);
+    var resultingPassword = "";
+    var i = 0;
 
-//need variable for special characters and random generator
+    while (i < howLong) {
 
-var specialChars = ("!@#$%^&*");
-var randomSpecialchar = specialChars[Math.floor(Math.random() * specialChars.length)];
-console.log(randomSpecialchar);
-
-//given with the initial code need to figure out what it is:
-var generateBtn = document.querySelector("#generate");
-
-//variables with confirms and a prompt
-
-var willContinue = confirm("Do you want to generate a random password? Click OKAY to enter password specifications, or click CANCEL to decline.")
-
-var wantSpec = confirm("Do you want special characters in your password?");
-    
-var wantLower = confirm("Do you want lowercase letters in your password?");
-
-var wantUpper = confirm("Do you want uppercase letters in your password?");
-
-var wantNum = confirm("Do you want numbers in your password?");
-
-var howLong = prompt("What is the length of your desired password?");
-
-
-//if statements
-
-
-if (howLong < 8 || howLong > 128) {
-
-    window.alert("Your password must be between 8 and 128 characters long. Please re-enter your password length.");
-
-    prompt("What is the length of your desired password?");
-
-    } else {
-
-        console.log(passwordLength); 
+        if (lower === true) {
+            randomLower = characterLowercase[Math.floor(Math.random() * characterLowercase.length)];
+            resultingPassword += randomLower;
+        }
         
-    }
-
-if (wantSpec === true) {
-
-    console.log(randomSpecialchar);
-
-    } else {
+        if (special === true) {
+            randomSpecialchar = specialChars[Math.floor(Math.random() * specialChars.length)];
+            resultingPassword += randomSpecialchar;
+        } 
         
-        console.log("No special characters.");
-
-    }
-
-if (wantLower === true) {
-
-    console.log(randomLower);
-    
-    } else {
-            
-        console.log("No lowercase letters.");
-    
-    }
-
-if (wantUpper === true) {
-
-    console.log(randomUpper);
+        if (upper === true) {
+            randomUpper = characterUppercase[Math.floor(Math.random() * characterUppercase.length)];
+            resultingPassword += randomUpper;
+        }
         
-    } else {
-                
-    console.log("No uppercase letters.");
-        
+        if (number === true) {
+            randomNum = (Math.floor(Math.random() * 100));
+            resultingPassword += randomNum;
+        }
+
+        console.log("iteration "+i+" curent resultingpassword: "+resultingPassword);
+        i++;
     }
 
-if (wantNum === true) {
-
-    console.log(randomNum);
-            
-    } else {
-                    
-    console.log("No numbers.");
-            
-    }
-
-
+    return resultingPassword;
+}
+ 
 function writePassword() {
 
-    var password = generatePassword();
+    // user specifications for the password
+    var special = confirm("Do you want SPECIAL characters in your password?");     
+    var lower = confirm("Do you want LOWERCASE letters in your password?");
+    var upper = confirm("Do you want UPPERCASE letters in your password?");
+    var number = confirm("Do you want NUMBERS in your password?");
+    var howLong = prompt("What is the LENGTH of your desired password?");
 
-    var passwordText = document.querySelector("#password");
+    // input validation for password length 8 to 128 characters
+    if (howLong < 8 || howLong > 128) {
 
-    passwordText.value = password;
+        window.alert("Your password must be between 8 and 128 characters long. Please re-enter your password length.");
+        prompt("What is the LENGTH of your desired password?");
+    }
 
-    return password
+    var password = generatePassword(upper, lower, number, special, howLong);
+    var passwordText = document.querySelector("#password").value = password;
+    return password;
 }
 
-//event listeners
-// Add event listener to generate button
 
-generateBtn.addEventListener("click", writePassword);
-
-
-//run the function to test it:
-
-writePassword(password);
+// adding eventlistener to generate password button
+var generateBtn = document.querySelector("#generate").addEventListener("click", writePassword);
