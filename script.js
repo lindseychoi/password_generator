@@ -25,33 +25,50 @@ function generatePassword(upper, lower, number, special, howLong) {
     var characterLowercase = ("abcdefghijklmnopqrstuvwxyz");
     var characterUppercase = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     var specialChars = ("!@#$%^&*");
-    var availableCharacterSet = "";
+    var numberSet = ("0123456789");
 
+    // set available character sets
+    var availableCharacterSet;
     var resultingPassword = "";
+    var numCharactersToGenerate = howLong;
+
+    if (lower === true) {
+        randomLower = characterLowercase[Math.floor(Math.random() * characterLowercase.length)];
+        resultingPassword += randomLower;
+        availableCharacterSet += characterLowercase;
+        numCharactersToGenerate--;
+    }
+    
+    if (special === true) {
+        randomSpecialchar = specialChars[Math.floor(Math.random() * specialChars.length)];
+        resultingPassword += randomSpecialchar;
+        numCharactersToGenerate--;
+        availableCharacterSet += specialChars;
+    } 
+    
+    if (upper === true) {
+        randomUpper = characterUppercase[Math.floor(Math.random() * characterUppercase.length)];
+        resultingPassword += randomUpper;
+        numCharactersToGenerate--;
+        availableCharacterSet += characterUppercase;
+    }
+    
+    if (number === true) {
+        randomNum = numberSet[Math.floor(Math.random() * numberSet.length)];
+        resultingPassword += randomNum;
+        numCharactersToGenerate--;
+        availableCharacterSet += numberSet;
+    }
+
+    console.log("resulting password: "+ resultingPassword);
+
+    // generate the rest of the characters
     var i = 0;
 
-    while (i < howLong) {
+    while (i < numCharactersToGenerate) {
 
-        if (lower === true) {
-            randomLower = characterLowercase[Math.floor(Math.random() * characterLowercase.length)];
-            resultingPassword += randomLower;
-        }
-        
-        if (special === true) {
-            randomSpecialchar = specialChars[Math.floor(Math.random() * specialChars.length)];
-            resultingPassword += randomSpecialchar;
-        } 
-        
-        if (upper === true) {
-            randomUpper = characterUppercase[Math.floor(Math.random() * characterUppercase.length)];
-            resultingPassword += randomUpper;
-        }
-        
-        if (number === true) {
-            randomNum = (Math.floor(Math.random() * 100));
-            resultingPassword += randomNum;
-        }
-
+        randomCharacter = availableCharacterSet[Math.floor(Math.random() * availableCharacterSet.length)];
+        resultingPassword += randomCharacter;
         console.log("iteration "+i+" curent resultingpassword: "+resultingPassword);
         i++;
     }
