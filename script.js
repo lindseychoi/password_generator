@@ -27,8 +27,6 @@ function generatePassword(upper, lower, number, special, howLong) {
     var specialChars = ("!@#$%^&*");
     var availableCharacterSet = "";
 
-    if 
-
     var resultingPassword = "";
     var i = 0;
 
