@@ -28,39 +28,36 @@ function generatePassword(upper, lower, number, special, howLong) {
     var numberSet = ("0123456789");
 
     // set available character sets
-    var availableCharacterSet;
+    var availableCharacterSet = "";
     var resultingPassword = "";
     var numCharactersToGenerate = howLong;
 
     if (lower === true) {
-        randomLower = characterLowercase[Math.floor(Math.random() * characterLowercase.length)];
-        resultingPassword += randomLower;
+        resultingPassword += characterLowercase[Math.floor(Math.random() * characterLowercase.length)];
         availableCharacterSet += characterLowercase;
         numCharactersToGenerate--;
     }
     
     if (special === true) {
-        randomSpecialchar = specialChars[Math.floor(Math.random() * specialChars.length)];
-        resultingPassword += randomSpecialchar;
+        resultingPassword += specialChars[Math.floor(Math.random() * specialChars.length)];
         numCharactersToGenerate--;
         availableCharacterSet += specialChars;
     } 
     
     if (upper === true) {
-        randomUpper = characterUppercase[Math.floor(Math.random() * characterUppercase.length)];
-        resultingPassword += randomUpper;
+        resultingPassword += characterUppercase[Math.floor(Math.random() * characterUppercase.length)];
         numCharactersToGenerate--;
         availableCharacterSet += characterUppercase;
     }
     
     if (number === true) {
-        randomNum = numberSet[Math.floor(Math.random() * numberSet.length)];
-        resultingPassword += randomNum;
+        resultingPassword += numberSet[Math.floor(Math.random() * numberSet.length)];
         numCharactersToGenerate--;
         availableCharacterSet += numberSet;
     }
 
-    console.log("resulting password: "+ resultingPassword);
+    console.log("available character set: " + availableCharacterSet);
+    console.log("initial resulting password: "+ resultingPassword);
 
     // generate the rest of the characters
     var i = 0;
@@ -83,18 +80,19 @@ function writePassword() {
     var lower = confirm("Do you want LOWERCASE letters in your password?");
     var upper = confirm("Do you want UPPERCASE letters in your password?");
     var number = confirm("Do you want NUMBERS in your password?");
+    var tryAgain;
 
     //check to see if at least one type is specified
     while (!special && !lower && !upper && !number) {
-        var tryAgain = confirm("Password criteria incorrect. Must have one type selected. Please try again.");
-        if (tryAgain === true) {
+        tryAgain = confirm("Password criteria incorrect. Must have one type selected. Please try again.");
+        if (tryAgain) {
             special = confirm("Do you want SPECIAL characters in your password?");     
             lower = confirm("Do you want LOWERCASE letters in your password?");
             upper = confirm("Do you want UPPERCASE letters in your password?");
             number = confirm("Do you want NUMBERS in your password?");
-        } 
+        }
         else {
-            return
+            return;
         }
     }
 
