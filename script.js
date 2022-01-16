@@ -70,7 +70,7 @@ function generatePassword(upper, lower, number, special, howLong) {
         i++;
     }
 
-    return resultingPassword;
+    return resultingPassword.split('').sort(function(){return 0.5-Math.random()}).join('');
 }
  
 function writePassword() {
