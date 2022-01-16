@@ -83,13 +83,28 @@ function writePassword() {
     var lower = confirm("Do you want LOWERCASE letters in your password?");
     var upper = confirm("Do you want UPPERCASE letters in your password?");
     var number = confirm("Do you want NUMBERS in your password?");
+
+    //check to see if at least one type is specified
+    while (!special && !lower && !upper && !number) {
+        var tryAgain = confirm("Password criteria incorrect. Must have one type selected. Please try again.");
+        if (tryAgain === true) {
+            special = confirm("Do you want SPECIAL characters in your password?");     
+            lower = confirm("Do you want LOWERCASE letters in your password?");
+            upper = confirm("Do you want UPPERCASE letters in your password?");
+            number = confirm("Do you want NUMBERS in your password?");
+        } 
+        else {
+            return
+        }
+    }
+
     var howLong = prompt("What is the LENGTH of your desired password?");
 
     // input validation for password length 8 to 128 characters
-    if (howLong < 8 || howLong > 128) {
+    while (howLong < 8 || howLong > 128) {
 
         window.alert("Your password must be between 8 and 128 characters long. Please re-enter your password length.");
-        prompt("What is the LENGTH of your desired password?");
+        howLong = prompt("What is the LENGTH of your desired password?");
     }
 
     var password = generatePassword(upper, lower, number, special, howLong);
